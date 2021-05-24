@@ -49,11 +49,11 @@ docker push $registry_uri
 ### Windows
 
 ```powershell
-$registry="MyACRRegistry"
-$registry_uri="myacrregistry.azurecr.io"
+$registry="akstraining123"
+$registry_uri="akstraining123.azurecr.io"
 $accounts=az account list
 if ($accounts.length -eq 0){
-  az login
+  az login --tenant gunnebo.com
 }
 az acr login --name $registry
 docker build -t $registry_uri/my/repo:0.13 --tag $registry_uri/my/repo:latest .
@@ -64,11 +64,11 @@ docker push $registry_uri/my/repo:latest
 ### MacOS
 
 ```bash
-registry="MyACRRegistry"
-registry_uri="myacrregistry.azurecr.io"
-accounts=az account list
+registry="akstraining123"
+registry_uri="akstraining123.azurecr.io"
+accounts=$(az account list)
 if $accounts; then
-  az login
+  az login --tenant gunnebo.com
 fi
 az acr login --name $registry
 docker build -t $registry_uri/my/repo:0.13 --tag $registry_uri/my/repo:latest .

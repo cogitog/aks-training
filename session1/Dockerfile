@@ -1,4 +1,4 @@
-FROM alpine:lamypod
+FROM alpine:3.9.6
 RUN apk update && apk add bash
 ENV ENV_VAR_SECRET=value
 ENV ENV_VAR=value
