@@ -84,6 +84,9 @@ kubectl run mypod --rm -it --port 80 --env="ENV_VAR_SECRET=value" --image=nginx
 --port 80 expose port 80 outside of the container
 -it Run interactively
 
+kubectl port-forward mypod 8080:80
+
+- Now go to http://127.0.0.1:8080/
 
 # Exercise - Run a container in Kubernetes (declarative)
 
