@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mydep-svc
+spec:
+  selector:
+    name: mydep
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 80
+  type: ClusterIP

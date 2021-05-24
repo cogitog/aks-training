@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    component: controller
+  name: mypod
+spec:
+  securityContext:
+    runAsNonRoot: false
+    runAsGroup: 1000
+    runAsUser: 1000
+  containers:
+  - name: mypod
+    image: nginx
+    command: ["/docker-entrypoint.sh"]
+    env:
+    - name: ENV_VAR_SECRET
+      value: "true"
+    ports:
+    - name: http
+      port: 80
+  restartPolicy: Always
