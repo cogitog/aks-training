@@ -22,7 +22,7 @@ docker exec -it container sh
 
 # Exercise - Build a docker image
 
-## DockerHub
+## DockerHub
 
 ### Windows
 
@@ -46,7 +46,7 @@ docker push $registry_uri
 
 ## Azure ACR 
 
-### Windows
+### Windows
 
 ```powershell
 $registry="MyACRRegistry"
