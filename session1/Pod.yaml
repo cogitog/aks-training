@@ -4,7 +4,6 @@ metadata:
   labels:
     component: controller
   name: mypod
-  namespace: mining-dev
 spec:
   securityContext:
     runAsNonRoot: false
