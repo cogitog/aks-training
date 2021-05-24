@@ -14,8 +14,8 @@ spec:
         app: mydep
     spec:
       containers:
-      - image: alpine
-        command: ["/bin/sh","-c","cat"]
+      - image: alpine:3.9.6
+        command: ["/bin/sh","-c","sleep 10000"]
         imagePullPolicy: Always
         name: mydep
         ports:

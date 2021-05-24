@@ -151,6 +151,6 @@ rm -fr mynewchart/templates/tests
 
 - Install the chart 
 
-helm upgrade mypod ./mychart --install --namespace default
+helm upgrade mypod ./mynewchart --install --namespace default
 
 - Run the port-forward command displayed in the prompt
