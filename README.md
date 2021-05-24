@@ -1,3 +1,9 @@
+# Cheat Sheet
+
+kubectl run mypod --image=nginx --dry-run -o yaml
+kubectl run mypod --image=nginx --namespace=default --env=HELLO=VALUE --dry-run -o yaml
+
+
 # Docker - Running containers in Docker
 
 - Run a container interactively
@@ -80,13 +86,23 @@ docker push $registry_uri/my/repo:latest
 
 kubectl run mypod --rm -it --port 80 --env="ENV_VAR_SECRET=value" --image=nginx 
 
+```
 --rm remove container once PID 1 it had exit'ed
 --port 80 expose port 80 outside of the container
 -it Run interactively
+```
 
 kubectl port-forward mypod 8080:80
 
 - Now go to http://127.0.0.1:8080/
+
+
+
+# Resources Types in Kubernetes
+
+Pod -> Deployment/Job/DaemonSet/Statefulset -> ReplicaSets 
+
+
 
 # Exercise - Run a container in Kubernetes (declarative)
 
@@ -110,7 +126,7 @@ kubectl apply -f PodService.yaml
 
 - Apply an immediate change to the deployment to upgrade it
 
-kubectl set image deployments/mydep alpine:0.1
+kubectl set image deployment.v1.apps/mydep alpine:3.9.3
 
 - Check status of the upgrade
 
@@ -131,7 +147,7 @@ kubectl rollout undo deployment.v1.apps/mydep
 
 cd charts
 helm create mynewchart
-rm -fr mychart/templates/tests  
+rm -fr mynewchart/templates/tests  
 
 - Install the chart 
 
