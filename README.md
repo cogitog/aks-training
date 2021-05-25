@@ -154,3 +154,20 @@ rm -fr mynewchart/templates/tests
 helm upgrade mypod ./mynewchart --install --namespace default
 
 - Run the port-forward command displayed in the prompt
+
+## Follow-up email
+
+```bash
+#Perfrom and record the RollingUpgrade of a Kubernetes deployment to docker image version nginx:1.161 where the deployment name is ‘nginx-deployment’ and the container name is ‘nginx’
+
+kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+--record You can specify the --record flag to write the command executed in the resource annotation kubernetes.io/change-cause. The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision. See here for more information
+
+#Generate a yaml file for a deployment 
+
+kubectl create deployment mydeployment --image=nginx --dry-run -o yaml
+
+#MacOS/Linux - Output a list of Kubernetes Resource “Kind:” vs “apiVersion:” for use at the top of all Kubernetes yaml files
+for kind in `kubectl api-resources | tail +2 | awk '{ print $1 }'`; do kubectl explain $kind; done | grep -e "KIND:" -e "VERSION:"
+
+```
