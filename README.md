@@ -171,3 +171,205 @@ kubectl create deployment mydeployment --image=nginx --dry-run -o yaml
 for kind in `kubectl api-resources | tail +2 | awk '{ print $1 }'`; do kubectl explain $kind; done | grep -e "KIND:" -e "VERSION:"
 
 ```
+
+
+# Session 2 - AKS Core
+
+az ad sp create-for-rbac --skip-assignment --name myAKSClusterServicePrincipal
+
+## Exercise - Running Terraform using Docker
+
+- Populate the below file with the provided `appId` and `password` 
+
+`session2/terraform/terraform.tfvars`
+
+### [OPTIONAL] Build and push the docker image 
+
+
+- MacOS
+
+```bash
+registry_uri="akstraining123.azurecr.io"
+accounts=$(az account list)
+if $accounts; then
+ az login --tenant gunnebo.com
+fi
+az acr login --name $registry_uri
+docker build -t $registry_uri/terraform:0.14.6 --tag $registry_uri/terraform:latest .
+docker push $registry_uri/terraform:0.14.6
+docker push $registry_uri/terraform:latest
+```
+
+- Windows
+
+```powershell
+$registry="akstraining123"
+$registry_uri="akstraining123.azurecr.io"
+$accounts=az account list
+if ($accounts.length -eq 0){
+  az login --tenant gunnebo.com
+}
+az acr login --name $registry_uri
+docker build -t $registry_uri/terraform:0.14.6 --tag $registry_uri/terraform:latest .
+docker push $registry_uri/terraform:0.14.6
+docker push $registry_uri/terraform:latest
+```
+
+
+### Running Terraform using Docker (Mac)
+
+```bash
+cd session2/terraform ; 
+
+# Run the new 
+docker run --rm -it -v ~/.azure:/root/.azure -v ~/.bash_history:/root/.bash_history:ro -v `pwd`:/project akstraining123.azurecr.io/terraform:0.14.6 bash
+
+cd /project
+
+# Initialise the Terraform backend state
+terraform init
+
+
+# Deploy resources using Terraform
+terraform apply
+```
+
+### Running Terraform using Docker (Win)
+
+```powershell
+cd session2/terraform ; 
+
+$pwd=Get-Location
+# Run the new 
+docker run --rm -it -v ~/.azure:/root/.azure -v ~/.bash_history:/root/.bash_history:ro -v ${pwd}:/project akstraining123.azurecr.io/terraform:0.14.6 bash
+
+cd /project
+
+# Initialise the Terraform backend state
+terraform init
+
+
+# Deploy resources using Terraform
+terraform apply
+```
+
+
+## Exercise - Terraform Practical implementation
+
+- Update the AKS tags to include your name eg. "georgec" : "true",
+
+Edit: 
+
+`session2/terraform/aks-cluster.tf`
+
+- Deploy the change (Mac)
+```bash
+cd session2/terraform ; 
+
+# Run the new 
+docker run --rm -it -v ~/.azure:/root/.azure -v ~/.bash_history:/root/.bash_history:ro -v `pwd`:/project akstraining123.azurecr.io/terraform:0.14.6 bash
+
+cd /project
+
+# Initialise the Terraform backend state
+terraform init
+
+
+# Deploy resources using Terraform
+terraform apply
+```
+
+- Deploy the change (Win)
+
+```powershell
+cd session2/terraform ; 
+
+# Run the new 
+$pwd=Get-Location
+docker run --rm -it -v ~/.azure:/root/.azure -v ~/.bash_history:/root/.bash_history:ro -v ${pwd}:/project akstraining123.azurecr.io/terraform:0.14.6 bash
+
+cd /project
+
+# Initialise the Terraform backend state
+terraform init
+
+
+# Deploy resources using Terraform
+terraform apply
+```
+
+
+## Exercise - Interact with AKS
+
+
+Either 
+ - Retrieve the Kubernetes configuration to authenticate your local Kubectl
+
+ or
+
+ - Use Azure CLI to retrieve the configuration
+
+1. Retrieve the Kubernetes configuration to authenticate your local Kubectl
+
+```bash
+terraform apply
+
+# or just use the output function
+terraform output
+
+```
+
+- Copy and paste it to ~/.kube/kubeconfig_aks-training
+
+- Use the context
+
+export KUBECONFIG=~/.kube/kubeconfig_aks-training
+
+- Test connectivity
+
+kubectl get pods
+
+- Deploy a container
+
+kubectl apply -f pod.yaml
+
+2. Use Azure CLI to retrieve the configuration
+
+- Retrieve kube config using Azure CLI
+
+az aks get-credentials --resource-group aks-training --name aks-training-aks
+
+- Test connectivity
+
+kubectl get pods
+
+- Deploy a container
+
+kubectl apply -f pod.yaml
+
+
+## Basic monitoring
+
+- See .bash_profile
+
+- Deploy Metrics server
+
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.4.2/components.yaml
+Kubectl top nodes
+Kubectl top pod 
+
+
+- Deploy K8s Dashboard
+
+```bash
+
+# Install the dashboard
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+
+# Run the local k8s proxy
+
+kubectl proxy --port=8001 --address=0.0.0.0 --accept-hosts='.*'
+
+# Browse to the service
+http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login
+```
