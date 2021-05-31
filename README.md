@@ -232,7 +232,7 @@ az acr login --name $registry_uri
 
 
 # Run the new 
-docker run --rm -it -v ~/.azure:/root/.azure -v ~/.bash_history:/root/.bash_history:ro -v `pwd`:/project akstraining123.azurecr.io/terraform:0.14.6 bash
+docker run --rm -it -v ~/.azure:/root/.azure -v `pwd`:/project akstraining123.azurecr.io/terraform:0.14.6 bash
 
 cd /project
 
@@ -251,7 +251,7 @@ cd session2/terraform ;
 
 $pwd=Get-Location
 # Run the new 
-docker run --rm -it -v ~/.azure:/root/.azure -v ~/.bash_history:/root/.bash_history:ro -v ${pwd}:/project akstraining123.azurecr.io/terraform:0.14.6 bash
+docker run --rm -it -v ~/.azure:/root/.azure -v ${pwd}:/project akstraining123.azurecr.io/terraform:0.14.6 bash
 
 cd /project
 
@@ -277,7 +277,7 @@ Edit:
 cd session2/terraform ; 
 
 # Run the new 
-docker run --rm -it -v ~/.azure:/root/.azure -v ~/.bash_history:/root/.bash_history:ro -v `pwd`:/project akstraining123.azurecr.io/terraform:0.14.6 bash
+docker run --rm -it -v ~/.azure:/root/.azure -v `pwd`:/project akstraining123.azurecr.io/terraform:0.14.6 bash
 
 cd /project
 
@@ -296,7 +296,7 @@ cd session2/terraform ;
 
 # Run the new 
 $pwd=Get-Location
-docker run --rm -it -v ~/.azure:/root/.azure -v ~/.bash_history:/root/.bash_history:ro -v ${pwd}:/project akstraining123.azurecr.io/terraform:0.14.6 bash
+docker run --rm -it -v ~/.azure:/root/.azure -v ${pwd}:/project akstraining123.azurecr.io/terraform:0.14.6 bash
 
 cd /project
 
