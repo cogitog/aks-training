@@ -5,6 +5,17 @@ provider "azurerm" {
 }
 
 
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "aks-training"
+    storage_account_name = "akstrainingdemotfstate"
+    container_name       = "aks-training"
+    key                  = "aks/terraform.tfstate"
+  }
+}
+
+
+
 resource "azurerm_kubernetes_cluster" "default" {
   name                = "${random_pet.prefix.id}-aks"
   location            = var.location

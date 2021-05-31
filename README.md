@@ -313,6 +313,7 @@ terraform apply
 
 
 Either 
+
  - Retrieve the Kubernetes configuration to authenticate your local Kubectl
 
  or
