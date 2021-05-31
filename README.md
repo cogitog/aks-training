@@ -218,8 +218,18 @@ docker push $registry_uri/terraform:latest
 
 ### Running Terraform using Docker (Mac)
 
+
 ```bash
 cd session2/terraform ; 
+
+# Login to ACR
+registry_uri="akstraining123.azurecr.io"
+accounts=$(az account list)
+if $accounts; then
+ az login --tenant gunnebo.com
+fi
+az acr login --name $registry_uri
+
 
 # Run the new 
 docker run --rm -it -v ~/.azure:/root/.azure -v ~/.bash_history:/root/.bash_history:ro -v `pwd`:/project akstraining123.azurecr.io/terraform:0.14.6 bash

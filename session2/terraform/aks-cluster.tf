@@ -29,5 +29,6 @@ resource "azurerm_kubernetes_cluster" "default" {
 
   tags = {
     environment = "Demo",
+    georgec = "true",
   }
 }
