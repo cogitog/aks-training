@@ -348,7 +348,7 @@ kubectl apply -f pod.yaml
 
 - Retrieve kube config using Azure CLI
 
-az aks get-credentials --resource-group aks-training --name aks-training-aks
+az aks get-credentials --resource-group aks-training --name smashing-tortoise-aks
 
 - Test connectivity
 
