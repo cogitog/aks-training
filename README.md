@@ -395,5 +395,5 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/a
 kubectl proxy --port=8001 --address=0.0.0.0 --accept-hosts='.*'
 
 # Browse to the service
-http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login
+http://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login
 ```
