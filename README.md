@@ -239,6 +239,10 @@ docker run --rm -it -v ~/.azure:/root/.azure -v `pwd`:/project akstraining123.az
 
 cd /project
 
+
+# Ensure Azure Account is set
+az account set --subscription 64e455b9-c577-484c-8710-35cb4a94a2c7
+
 # Initialise the Terraform backend state
 terraform init
 
@@ -258,6 +262,11 @@ docker rmi akstraining123.azurecr.io/terraform:0.14.6
 docker run --rm -it -v ~/.azure:/root/.azure -v ${pwd}:/project akstraining123.azurecr.io/terraform:0.14.6 bash
 
 cd /project
+
+
+# Ensure Azure Account is set
+az account set --subscription 64e455b9-c577-484c-8710-35cb4a94a2c7
+
 
 # Initialise the Terraform backend state
 terraform init
