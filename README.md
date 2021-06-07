@@ -396,4 +396,12 @@ kubectl proxy --port=8001 --address=0.0.0.0 --accept-hosts='.*'
 
 # Browse to the service
 http://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login
+
+kubectl -n kube-system describe secret deployment-controller-token-frsqj
+
+# To login using the token (MacOS)
+kubectl -n kube-system get secret deployment-controller-token-bq2q6 -o jsonpath='{.data.token}' | base64 --decode
+
+# To login using the token (Windows)
+kubectl -n kube-system get secret deployment-controller-token-bq2q6 -o jsonpath='{.data.token}'
 ```
