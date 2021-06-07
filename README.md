@@ -222,6 +222,8 @@ docker push $registry_uri/terraform:latest
 ```bash
 cd session2/terraform ; 
 
+
+
 # Login to ACR
 registry_uri="akstraining123.azurecr.io"
 accounts=$(az account list)
@@ -232,6 +234,7 @@ az acr login --name $registry_uri
 
 
 # Run the new 
+docker rmi akstraining123.azurecr.io/terraform:0.14.6
 docker run --rm -it -v ~/.azure:/root/.azure -v `pwd`:/project akstraining123.azurecr.io/terraform:0.14.6 bash
 
 cd /project
@@ -251,6 +254,7 @@ cd session2/terraform ;
 
 $pwd=Get-Location
 # Run the new 
+docker rmi akstraining123.azurecr.io/terraform:0.14.6
 docker run --rm -it -v ~/.azure:/root/.azure -v ${pwd}:/project akstraining123.azurecr.io/terraform:0.14.6 bash
 
 cd /project
