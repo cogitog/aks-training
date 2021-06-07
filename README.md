@@ -403,5 +403,6 @@ kubectl -n kube-system describe secret deployment-controller-token-frsqj
 kubectl -n kube-system get secret deployment-controller-token-bq2q6 -o jsonpath='{.data.token}' | base64 --decode
 
 # To login using the token (Windows)
-kubectl -n kube-system get secret deployment-controller-token-bq2q6 -o jsonpath='{.data.token}'
+$token=kubectl -n kube-system get secret deployment-controller-token-bq2q6 -o jsonpath='{.data.token}'
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($token))
 ```
