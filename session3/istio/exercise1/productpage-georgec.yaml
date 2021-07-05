@@ -1,0 +1,61 @@
+#https://raw.githubusercontent.com/istio/istio/release-1.10/samples/bookinfo/platform/kube/bookinfo.yaml
+##################################################################################################
+# ProductPage services
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: productpage-georgec
+  labels:
+    app: productpage-georgec
+    service: productpage
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: productpage-BROKEN-georgec
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookinfo-productpage-georgec
+  labels:
+    account: productpage
+    app: productpage-georgec
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productpage-georgec
+  labels:
+    app: productpage-georgec
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productpage-georgec
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: productpage-georgec
+        version: v1
+    spec:
+      serviceAccountName: bookinfo-productpage-georgec
+      containers:
+      - name: productpage
+        image: docker.io/istio/examples-bookinfo-details-v1:1.16.2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9080
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        securityContext:
+          runAsUser: 1000
+      volumes:
+      - name: tmp
+        emptyDir: {}
+---

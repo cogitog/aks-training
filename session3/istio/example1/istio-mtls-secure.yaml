@@ -1,0 +1,9 @@
+# https://istio.io/latest/docs/tasks/security/authentication/authn-policy/#namespace-wide-policy
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: secure
+spec:
+  mtls:
+    mode: STRICT
